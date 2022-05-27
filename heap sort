@@ -1,0 +1,82 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+void swap(int *a,int *b){
+	int t=*a;
+	*a=*b;
+	*b=t;
+}
+class heapsort{
+	int r;
+	int size;
+	public:
+	heapsort(int n)
+	{
+		r=-1;
+		size=n;
+		
+	}
+	void show(int a[],int n)
+	{
+		for(int i=0;i<n;i++)
+		cout<<a[i]<<" ";
+		
+		cout<<endl;
+	}
+	void in(int a[],int n){
+	for(int i=0;i<n;i++)
+		cin>>a[i];
+	}
+	
+	void heapify(int a[],int i,int r)
+	{
+		if(i>=(r/2))
+			return;
+		int lc,rc,smallest;
+		lc=i*2+1;
+		rc=i*2+2;
+		smallest=i;
+		if(lc<=r and a[lc]<a[smallest])
+			smallest=lc;
+		if(rc<=r and a[rc]<a[smallest])
+			smallest=rc;
+		if(smallest!=i)
+		{
+			swap(&a[i],&a[smallest]);
+			heapify(a,smallest,r);
+		}
+	}
+	void buildheap(int a[],int n)
+	{
+		for(int i=0;i<n/2;i++)
+			heapify(a,i,n-1);
+	}
+	void pop(int a[],int n)
+	{
+		int r=n-1;
+		while(r)
+		{
+			swap(&a[0],&a[r]);
+			r--;
+			heapify(a,0,r);	
+		}
+	}
+    void heap_sort(int a[],int n)
+    {
+    	buildheap(a,n);
+    	pop(a,n);
+	}
+};
+int main(void){
+	heapsort p=heapsort(5);
+    int n;
+	cout<<"SIZE OF THE ARRAY--";
+	cin>>n;
+	int a[n];
+	cout<<"ENTER THE ARRAY "<<endl;
+	p.in(a,n);
+	p.heap_sort(a,n);
+	cout<<"SORTED ARRAY"<<endl;
+	p.show(a,n);
+
+}
